@@ -114,16 +114,43 @@
              // Creating and storing an image tag
             var topicImage = $("<img>");
 
-            // Setting the src attribute of the image to a property pulled off the result item
-            topicImage.attr("src", results[j].images.fixed_height.url);
+            // Setting the attributes of the image to a property pulled off the result item
+             topicImage.attr("src", results[j].images.original_still.url);
+             topicImage.attr("data-still", results[j].images.original_still.url);
+             topicImage.attr("data-animate", results[j].images.original.url);
+             topicImage.attr("class", "gif");
+             topicImage.attr("data-state", "still");
 
             // Appending the paragraph and image tag to the animalDiv
             topicDiv.append(topicImage);
 
             // Prependng the animalDiv to the HTML page in the "#gifs-appear-here" div
             $("#gifs-appear-here").prepend(topicDiv);
+
           }
-    //=== WORKING ===
+
+          //=== WORKING ===
+
+          //When the user clicks one of the still GIPHY images, 
+          //the gif should animate. If the user clicks the gif again, 
+          //it should stop playing
+
+          $(".gif").on("click", function() {
+          // The attr jQuery method allows us to get or set the value of any attribute on our HTML element
+          var state = $(this).attr("data-state");
+          // If the clicked image's state is still, update its src attribute to what its data-animate value is.
+          // Then, set the image's data-state to animate
+          // Else set src to the data-still value
+            if (state === "still") {
+               $(this).attr("src", $(this).attr("data-animate"));
+               $(this).attr("data-state", "animate");
+            } else {
+               $(this).attr("src", $(this).attr("data-still"));
+               $(this).attr("data-state", "still");
+            }
+          });
+
+            //=== WORKING ===
 
        }); //end .done
 
