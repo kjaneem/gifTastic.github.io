@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>gifTastic</title>
+
+    <!-- reset.css -->
+    <link rel="stylesheet" type="text/css" href="assets/reset.css">
+
+    <!-- bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" crossorigin="anonymous">
+
+    <!-- style.css -->
+    <!-- link rel="stylesheet" type="text/css" href="style.css" -->
+
+    <!--JQUERY-->
+    <script src=https://code.jquery.com/jquery-3.2.1.min.js></script>
+
+    <!-- LINK TO FIREBASE GOES HERE -->
+    <script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
+
+  <meta charset="utf-8">
+  <title>Favorite Dog Breeds</title>
+  <style type="text/css">
+    button,
+    div,
+    form,
+    input {
+      margin: 10px;
+    }
+  </style>
+
+</head>
+<body>
+    <!-- Rendered buttons will get dumped Here  -->
+    <div id="buttons-view"></div>
+    <div id="gifs-appear-here">
+    <script type="text/javascript">
+    
+    //Asks javascript to better hightlight errors
+    "use strict";      
+
+    // Before you can make any part of our site work, 
+    //you need to create an array of strings, 
+    //each one related to a topic that interests you. 
+    //Save it to a variable called topics       
+
+    var topics =["chihuahua", "maltese", "poodle", "yorkie"];
+    
+    //Your app should take the topics in this array and create buttons in your HTML
+    //Try using a loop that appends a button for each string in the array.
+
+        // Deleting the dogs prior to adding new topics
+        // (this is necessary otherwise you will have repeat buttons)
+        $("#buttons-view").empty();
+
+        // Looping through the array of topics
+        for (var i = 0; i < topics.length; i++) {
+
+          // Then dynamicaly generating buttons for each topic in the array
+          // This code $("<button>") is all jQuery needs to create the beginning and end tag. (<button></button>)
+          var a = $("<button>");
+          // Adding a class of topic to our button
+          a.addClass("topic");
+          // Adding a data-attribute
+          a.attr("id", topics[i]);
+          a.attr("data-name", topics[i]);
+          // Providing the initial button text
+          a.text(topics[i]);
+          // Adding the button to the buttons-view div
+          $("#buttons-view").append(a);
+
+        }
+
+    //When the user clicks on a button, 
+    //the page should grab 10 static, non-animated gif images from the GIPHY API 
+    //and place them on the page.
+
+    // on.("click") function associated with the topic Button
+    $(".topic").on("click", function(event) {
+        //console.log("button click");
+
+        var selectedTopic = $(this).attr("data-name");
+        //console.log("button selected: " + selectedTopic);
+
+        var queryPrefix = "http://api.giphy.com/v1/gifs/search?q=";
+        var querySuffix = "&api_key=dc6zaTOxFJmzC&limit=10";
+        var queryURL = queryPrefix + selectedTopic + querySuffix;
+        console.log ("queryUrl: " + queryURL);
+
+        // Performing an AJAX request with the queryURL
+        $.ajax({
+          url: queryURL,
+          method: "GET"
+        })
+
+        // After data comes back from the request
+        .done(function(response) {
+          console.log(queryURL);
+
+          console.log(response);
+          // storing the data from the AJAX request in the results variable
+          var results = response.data;
+
+          // Looping through each result item
+          for (var j = 0; j < results.length; j++) {
+
+            // Creating and storing a div tag
+            var topicDiv = $("<div>");
+
+             // Creating and storing an image tag
+            var topicImage = $("<img>");
+
+            // Setting the src attribute of the image to a property pulled off the result item
+            topicImage.attr("src", results[j].images.fixed_height.url);
+
+            // Appending the paragraph and image tag to the animalDiv
+            topicDiv.append(topicImage);
+
+            // Prependng the animalDiv to the HTML page in the "#gifs-appear-here" div
+            $("#gifs-appear-here").prepend(topicDiv);
+          }
+    //=== WORKING ===
+
+       }); //end .done
+
+    }); //end on click
+ 
+
+    </script>    
+    <!-- javascript -->
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" crossorigin="anonymous"></script>
+
+</body>
+</html>
