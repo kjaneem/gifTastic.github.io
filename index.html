@@ -113,6 +113,8 @@
 
              // Creating and storing an image tag
             var topicImage = $("<img>");
+            var pRating = $("<p>").text("Rating: " + results[j].rating);
+            //console.log("Rating: " + results[j].rating);
 
             // Setting the attributes of the image to a property pulled off the result item
              topicImage.attr("src", results[j].images.original_still.url);
@@ -121,8 +123,10 @@
              topicImage.attr("class", "gif");
              topicImage.attr("data-state", "still");
 
-            // Appending the paragraph and image tag to the animalDiv
+            // Under every gif, display its rating
+            // Appending the paragraph and image tag to the topicDiv
             topicDiv.append(topicImage);
+            topicDiv.append(pRating);
 
             // Prependng the animalDiv to the HTML page in the "#gifs-appear-here" div
             $("#gifs-appear-here").prepend(topicDiv);
