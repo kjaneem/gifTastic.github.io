@@ -44,14 +44,16 @@
 
               <!-- Here we create the text box for capturing the search term-->
               <div class="form-group">
-                <label for="search">Enter another breed to create another breed button:</label>
-                <input type="text" class="form-control" id="search-term">
-                <div id ="addButton-view"></div>
+                <label for="search">Add a breed:</label>
+                <input type="text" id="search-term">
+                <!--div id ="addButton-view"></div-->
+
+                     <!-- Button triggers new movie to be added -->
+                      <input id="add-breed" type="submit" value="Add a Breed">
               </div>
             </form>
           </div>
 
-    <!--div id ="addButton-view"></div-->
   <!-- STEP #6 -->
 
     <!-- Rendered buttons will get dumped Here  -->
@@ -73,30 +75,23 @@
 
     var topics =["chihuahua", "maltese", "poodle", "yorkie"];
 
-    // STEP #6
-
-      var b = $("<button>");
-      b.addClass("addButton");
-      b.attr("id", "addButton");
-      b.text("Add breed button");
-      
-      $("#addButton-view").append(b);
-
-      // Grabbing text the user typed into the search input
-      $("#addButton").on("click", function(event){ 
+      // STEP #6
+      //Add a form to your page that takes the value from a user input box 
+      //and adds it into your topics array
+      $("#add-breed").on("click", function(event){ 
+        event.preventDefault();
 
           console.log("clicked add button");
-          // searchTerm = $("#search-term").val().trim();
-          // topics.push(searchTerm);
+          // Grabbing text the user typed into text box
+          searchTerm = $("#search-term").val().trim();
+          topics.push(searchTerm);
       
-          // for (var x = 0; x < topics.length; x++)
-          // {
-          //   console.log("topics: " + x + " " + topics[x]);
-          // }
+          for (var x = 0; x < topics.length; x++)
+          {
+            console.log("topics: " + x + " " + topics[x]);
+          }
       });
- 
-
-    // STEP #6
+     // STEP #6
     
     //Your app should take the topics in this array and create buttons in your HTML
     //Try using a loop that appends a button for each string in the array.
