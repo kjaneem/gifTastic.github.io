@@ -81,7 +81,6 @@
       $("#add-breed").on("click", function(event){ 
         event.preventDefault();
 
-          console.log("clicked add button");
           // Grabbing text the user typed into text box
           searchTerm = $("#search-term").val().trim();
           topics.push(searchTerm);
@@ -89,7 +88,9 @@
           for (var x = 0; x < topics.length; x++)
           {
             console.log("topics: " + x + " " + topics[x]);
-          }
+          }       
+
+          renderButtons();  
       });
      // STEP #6
     
@@ -100,6 +101,11 @@
         // (this is necessary otherwise you will have repeat buttons)
         $("#buttons-view").empty();
 
+     // STEP #7
+     renderButtons();
+     // STEP #7
+
+     function renderButtons() {
         // Looping through the array of topics
         for (var i = 0; i < topics.length; i++) {
 
@@ -117,6 +123,8 @@
           $("#buttons-view").append(a);
 
         }
+     }  //end renderButtons()
+
 
     //When the user clicks on a button, 
     //the page should grab 10 static, non-animated gif images from the GIPHY API 
@@ -176,8 +184,6 @@
 
           }
 
-          //=== WORKING ===
-
           //When the user clicks one of the still GIPHY images, 
           //the gif should animate. If the user clicks the gif again, 
           //it should stop playing
@@ -197,12 +203,11 @@
             }
           });
 
-            //=== WORKING ===
-
        }); //end .done
 
     }); //end on click
  
+
 
     </script>    
     <!-- javascript -->
