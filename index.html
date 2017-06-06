@@ -83,12 +83,17 @@
 
           // Grabbing text the user typed into text box
           searchTerm = $("#search-term").val().trim();
-          topics.push(searchTerm);
-      
-          for (var x = 0; x < topics.length; x++)
+
+          if($("#search-term") !== "")
           {
-            console.log("topics: " + x + " " + topics[x]);
-          }       
+            topics.push(searchTerm);
+          }
+      
+          $("#search-term").val("");  //empty the textbox
+          // for (var x = 0; x < topics.length; x++)
+          // {
+          //   console.log("topics: " + x + " " + topics[x]);
+          // }       
 
           $("#buttons-view").empty();
           renderButtons();  
